@@ -134,8 +134,8 @@ Signing happens **inside the customer's own wallet**. The app never sees, asks f
 secret key, seed phrase, recovery phrase or private key, and no merchant key is kept in browser
 storage.
 
-Wallet connection uses Stellar Wallets Kit (Freighter, plus WalletConnect-compatible Stellar wallets
-where the wallet supports it). Those wallets are browser technologies, so the customer payment page
+Wallet connection uses Stellar Wallets Kit with two adapters bundled: **Freighter** (browser
+extension) and **Albedo** (no install needed). Those wallets are browser technologies, so the customer payment page
 signs on **web**. Opened in a native build, the page shows the amount and asks the customer to open
 the link in a browser to pay — it never pretends to sign.
 

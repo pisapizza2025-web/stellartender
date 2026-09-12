@@ -27,27 +27,19 @@ async function loadKit(): Promise<KitClass> {
   }
 
   kitPromise ??= (async () => {
-    const [sdk, freighter, albedo, lobstr, rabet, xbull, hana] = await Promise.all([
+    // Only the adapters below are bundled. Stellar Wallets Kit ships every
+    // wallet as its own "modules/<name>" subpath, and several of those subpaths
+    // do not resolve under Metro, so adding one back can break the web bundle.
+    const [sdk, freighter, albedo] = await Promise.all([
       import('@creit.tech/stellar-wallets-kit'),
       import('@creit.tech/stellar-wallets-kit/modules/freighter'),
       import('@creit.tech/stellar-wallets-kit/modules/albedo'),
-      import('@creit.tech/stellar-wallets-kit/modules/lobstr'),
-      import('@creit.tech/stellar-wallets-kit/modules/rabet'),
-      import('@creit.tech/stellar-wallets-kit/modules/xbull'),
-      import('@creit.tech/stellar-wallets-kit/modules/hana'),
     ]);
 
     sdk.StellarWalletsKit.init({
       network: sdk.Networks.TESTNET,
       selectedWalletId: freighter.FREIGHTER_ID,
-      modules: [
-        new freighter.FreighterModule(),
-        new albedo.AlbedoModule(),
-        new lobstr.LobstrModule(),
-        new rabet.RabetModule(),
-        new xbull.xBullModule(),
-        new hana.HanaModule(),
-      ],
+      modules: [new freighter.FreighterModule(), new albedo.AlbedoModule()],
     });
 
     return sdk.StellarWalletsKit;
