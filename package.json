@@ -47,6 +47,7 @@
     "lucide-react-native": "^0.562.0",
     "pigeon-maps": "^0.22.1",
     "posthog-js": "^1.396.2",
+    "qrcode": "^1.5.4",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-hook-form": "~7.76.1",
