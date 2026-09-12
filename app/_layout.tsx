@@ -22,6 +22,7 @@ import {
   Stack,
 } from 'expo-router';
 
+import { initMerchantStore } from '@/lib/store/merchant';
 import { initPostHog } from '@/lib/posthog';
 import { registerServiceWorker } from '@/lib/registerServiceWorker';
 import { reportErrorToParent } from '@/lib/reportPreviewError';
@@ -134,6 +135,9 @@ export default function RootLayout() {
     }
   }, [loaded, error]);
 
+  // Merchant session, profile and platform settings follow the auth session.
+  useEffect(() => initMerchantStore(), []);
+
   if (!loaded && !error) {
     return null;
   }
@@ -141,8 +145,25 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <HeroUINativeProvider>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ title: 'Habits', headerShown: false }} />
+        <Stack
+          screenOptions={{
+            headerStyle: { backgroundColor: '#ffffff' },
+            headerTintColor: '#0a0a0a',
+            headerTitleStyle: { color: '#0a0a0a' },
+            headerShadowVisible: false,
+            contentStyle: { backgroundColor: '#fafafa' },
+          }}
+        >
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="login" options={{ headerShown: false }} />
+          <Stack.Screen name="onboarding" options={{ title: 'Set up your business' }} />
+          <Stack.Screen name="payment/[id]" options={{ title: 'Payment request' }} />
+          <Stack.Screen name="transactions/[id]" options={{ title: 'Transaction' }} />
+          <Stack.Screen name="pos-compatibility" options={{ title: 'Works alongside your POS' }} />
+          <Stack.Screen name="roadmap" options={{ title: 'Roadmap' }} />
+          <Stack.Screen name="demo" options={{ title: 'Hackathon demo mode' }} />
+          <Stack.Screen name="pay/[token]" options={{ headerShown: false }} />
         </Stack>
         <InstallPrompt />
       </HeroUINativeProvider>
