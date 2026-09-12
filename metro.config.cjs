@@ -1,4 +1,7 @@
 /** @type {import('expo/metro-config').MetroConfig} */
+const fs = require('node:fs');
+const path = require('node:path');
+
 const { getDefaultConfig } = require('expo/metro-config');
 const { withUniwindConfig } = require('uniwind/metro');
 
@@ -104,9 +107,35 @@ const shouldResolveEmpty = (moduleName, platform) =>
   (moduleName === 'react-native-maps' && platform === 'web') ||
   (moduleName === 'posthog-js' && platform !== 'web');
 
+// Stellar Wallets Kit publishes each wallet adapter as a "./modules/<name>"
+// subpath. Metro rejects some of those exports entries and then falls back to
+// a file path the package does not ship, so the bundle fails on a file that is
+// actually present. Point the subpaths straight at the real module files.
+const WALLET_KIT_MODULES_DIR = path.join(
+  __dirname,
+  'node_modules',
+  '@creit.tech',
+  'stellar-wallets-kit',
+  'esm',
+  'sdk',
+  'modules',
+);
+
+const walletKitModuleFile = (moduleName) => {
+  const match = /^@creit\.tech\/stellar-wallets-kit\/modules\/([\w-]+)$/.exec(moduleName);
+  if (!match) return null;
+  const filePath = path.join(WALLET_KIT_MODULES_DIR, `${match[1]}.module.js`);
+  return fs.existsSync(filePath) ? filePath : null;
+};
+
 config.resolver.resolveRequest = (context, moduleName, platform) => {
   if (shouldResolveEmpty(moduleName, platform)) {
     return { type: 'empty' };
+  }
+
+  const walletKitFile = walletKitModuleFile(moduleName);
+  if (walletKitFile) {
+    return { type: 'sourceFile', filePath: walletKitFile };
   }
 
   return defaultResolveRequest
