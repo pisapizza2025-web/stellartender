@@ -69,8 +69,8 @@ export default function OnboardingScreen() {
           Add another way to get paid
         </Text.Heading>
         <Text.Paragraph className="text-neutral-500">
-          Your POS runs your business. Alternative Stellar Payment handles the alternative payment —
-          no migration, no card details.
+          Your POS runs your business. Stellar Flexi Payment handles the alternative payment — no
+          migration, no card details.
         </Text.Paragraph>
       </View>
 

@@ -30,7 +30,7 @@ fn settles_and_splits_the_fee() {
     let contract_id = env.register(AlternativePayment, ());
     let client = AlternativePaymentClient::new(&env, &contract_id);
 
-    // 100.0000000 units at 30 bps => merchant 99.7, platform 0.3
+    // 100.0000000 units at 75 bps => merchant 99.25, platform 0.75
     let amount = 1_000_000_000i128;
     let settlement = client.pay(
         &String::from_str(&env, "X7K29Q42"),
@@ -39,16 +39,16 @@ fn settles_and_splits_the_fee() {
         &merchant,
         &platform,
         &amount,
-        &30,
+        &75,
     );
 
-    assert_eq!(settlement.platform_fee, 3_000_000);
-    assert_eq!(settlement.merchant_amount, 997_000_000);
+    assert_eq!(settlement.platform_fee, 7_500_000);
+    assert_eq!(settlement.merchant_amount, 992_500_000);
     assert_eq!(settlement.gross_amount, amount);
 
     let token_client = TokenClient::new(&env, &token);
-    assert_eq!(token_client.balance(&merchant), 997_000_000);
-    assert_eq!(token_client.balance(&platform), 3_000_000);
+    assert_eq!(token_client.balance(&merchant), 992_500_000);
+    assert_eq!(token_client.balance(&platform), 7_500_000);
 }
 
 #[test]
@@ -61,9 +61,9 @@ fn rejects_a_duplicate_payment_id() {
     let client = AlternativePaymentClient::new(&env, &contract_id);
     let payment_id = String::from_str(&env, "DUPLICATE");
 
-    client.pay(&payment_id, &token, &payer, &merchant, &platform, &100_000, &30);
+    client.pay(&payment_id, &token, &payer, &merchant, &platform, &100_000, &75);
 
-    let second = client.try_pay(&payment_id, &token, &payer, &merchant, &platform, &100_000, &30);
+    let second = client.try_pay(&payment_id, &token, &payer, &merchant, &platform, &100_000, &75);
     assert!(second.is_err());
     assert!(client.is_settled(&payment_id));
 }
@@ -84,7 +84,7 @@ fn rejects_non_positive_amounts() {
         &merchant,
         &platform,
         &0,
-        &30,
+        &75,
     );
     assert!(result.is_err());
 }

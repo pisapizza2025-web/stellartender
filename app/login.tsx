@@ -60,7 +60,7 @@ export default function LoginScreen() {
     <Screen contentClassName="gap-6 pt-16">
       <View className="gap-2">
         <Text.Heading type="h2" className="text-neutral-900">
-          Alternative Stellar Payment
+          Stellar Flexi Payment
         </Text.Heading>
         <Text.Paragraph className="text-neutral-500">
           Keep your POS. Change the payment rail.

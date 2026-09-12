@@ -1,5 +1,5 @@
 #![no_std]
-//! Alternative Stellar Payment — split settlement contract.
+//! Stellar Flexi Payment — split settlement contract.
 //!
 //! The contract settles one merchant payment in a single authorised call:
 //! the merchant receives the net amount, the platform receives the configured
@@ -67,9 +67,9 @@ impl AlternativePayment {
     /// * `token` — SAC / token contract address of the settlement asset (e.g. TESTGBP or native XLM).
     /// * `payer` — customer wallet; must authorise this invocation.
     /// * `merchant` — merchant receiving wallet.
-    /// * `platform` — Alternative Stellar Payment platform wallet.
+    /// * `platform` — Stellar Flexi Payment platform wallet.
     /// * `amount` — gross settlement amount in token stroops/units.
-    /// * `platform_fee_bps` — platform fee in basis points (30 = 0.30%).
+    /// * `platform_fee_bps` — platform fee in basis points (75 = 0.75%, the demo default).
     pub fn pay(
         env: Env,
         payment_id: String,

@@ -102,7 +102,7 @@ export default function CustomerPaymentScreen() {
     <Screen contentClassName="gap-5 pt-safe-offset-6">
       <View className="flex-row items-center justify-between">
         <Text.Paragraph type="body-sm" className="font-semibold text-neutral-900">
-          Alternative Stellar Payment
+          Stellar Flexi Payment
         </Text.Paragraph>
         <TestnetBadge />
       </View>
@@ -151,8 +151,7 @@ export default function CustomerPaymentScreen() {
               {txHash}
             </Text.Paragraph>
             <Text.Paragraph type="body-xs" align="center" className="text-neutral-600">
-              Alternative payment settled using Stellar Testnet. Merchant receives confirmation
-              automatically.
+              Payment settled using Stellar Testnet. Merchant receives confirmation automatically.
             </Text.Paragraph>
           </View>
           {txHash ? (
@@ -227,8 +226,8 @@ export default function CustomerPaymentScreen() {
                 </View>
               ) : null}
               <Text.Paragraph type="body-xs" align="center" className="text-neutral-500">
-                Alternative digital payment powered by Stellar. Signing happens inside your own
-                wallet — we never see your keys.
+                Stellar Flexi Payment — an alternative digital payment powered by Stellar. Signing
+                happens inside your own wallet — we never see your keys.
               </Text.Paragraph>
             </View>
           ) : (

@@ -13,7 +13,7 @@ export default function PosCompatibilityScreen() {
           Works alongside your existing POS
         </Text.Heading>
         <Text.Paragraph className="text-neutral-500">
-          Alternative Stellar Payment is an independent payment method. Your existing POS continues
+          Stellar Flexi Payment is an independent payment method. Your existing POS continues
           managing your business.
         </Text.Paragraph>
       </View>
@@ -25,7 +25,7 @@ export default function PosCompatibilityScreen() {
         </Text.Paragraph>
         <Text.Paragraph type="body-sm" className="text-neutral-600">
           For this MVP, after receiving payment you record the transaction using your POS&apos;s
-          supported external or custom payment tender — suggested name: Alternative Stellar Payment.
+          supported external or custom payment tender — suggested name: Stellar Flexi Payment.
         </Text.Paragraph>
       </SectionCard>
 
@@ -56,9 +56,9 @@ export default function PosCompatibilityScreen() {
 
       <SectionCard title="Payment flow">
         <Text.Paragraph type="body-sm" className="text-neutral-600">
-          Existing POS: £48.20 order → merchant opens Alternative Stellar Payment → enters £48.20 →
-          QR / NFC payment request → customer pays via Stellar → app says PAID → merchant records
-          Alternative Stellar Payment as external tender in the existing POS.
+          Existing POS: £48.20 order → merchant opens Stellar Flexi Payment → enters £48.20 → QR /
+          NFC payment request → customer pays via Stellar → app says PAID → merchant records Stellar
+          Flexi Payment as external tender in the existing POS.
         </Text.Paragraph>
         <Text.Paragraph type="body-sm" className="font-semibold text-neutral-900">
           The POS remains completely intact.

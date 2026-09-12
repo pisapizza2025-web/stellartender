@@ -1,8 +1,8 @@
 # SETUP.md — external configuration
 
-The app runs end to end without any of this file: it uses the real classic Stellar Testnet
-two-operation split payment. Everything below is the external configuration that **cannot** be
-completed from inside this environment, with the exact commands needed.
+Stellar Flexi Payment runs end to end without any of this file: it uses the real classic Stellar
+Testnet two-operation split payment. Everything below is the external configuration that **cannot**
+be completed from inside this environment, with the exact commands needed.
 
 Nothing here requires a secret key in the app. Never paste a secret key, seed phrase or recovery
 phrase into the UI or into source control.
@@ -15,7 +15,7 @@ phrase into the UI or into source control.
 | ------------------------- | --------------------------------- | ------------------------------------------------------------------- |
 | Merchant receiving wallet | Onboarding                        | Testnet public key `G…`                                             |
 | Platform wallet           | Settings → Platform configuration | a **different** Testnet public key `G…`                             |
-| Platform fee              | Settings                          | `30` bps = 0.30%                                                    |
+| Platform fee              | Settings                          | `75` bps = 0.75% (demo default: £100 → merchant £99.25, fee £0.75)  |
 | Public payment base URL   | Settings                          | the URL another device can open, e.g. `https://<your-expo-web-url>` |
 | Fund both wallets         | Demo mode → Friendbot buttons     | test XLM                                                            |
 
@@ -81,7 +81,8 @@ XLM with a visible reason if either side is not ready. The architecture stays as
 
 ## 3. Optional: deploy the Soroban split-payment contract
 
-The contract source is complete at `contracts/alternative_payment/`. It implements:
+The contract source is complete at `contracts/alternative_payment/` (folder and crate name kept so
+the deploy commands below stay valid). It implements:
 
 ```rust
 pay(payment_id, token, payer, merchant, platform_wallet, amount, platform_fee_bps)
@@ -90,6 +91,7 @@ pay(payment_id, token, payer, merchant, platform_wallet, amount, platform_fee_bp
 - validates `amount > 0` and `platform_fee_bps <= 10_000`
 - `payer.require_auth()`
 - computes `platform_fee = amount * bps / 10_000`, `merchant_amount = amount - platform_fee`
+  (demo default `bps = 75`, so £100 splits into £99.25 and £0.75)
 - transfers the merchant portion to the merchant wallet and the fee to the platform wallet
 - rejects a `payment_id` that has already settled (idempotency guard)
 - emits a `PaymentSettled` event with `payment_id`, merchant, payer, gross, merchant amount, fee,
@@ -170,7 +172,7 @@ secrets only — the app itself needs none, because the customer's wallet signs.
 - [ ] Customer wallet funded (and holding TESTGBP if you configured it)
 - [ ] Merchant receiving wallet set in Onboarding and **funded**
 - [ ] Platform wallet set in Settings and **funded**
-- [ ] Platform fee `30` bps
+- [ ] Platform fee `75` bps (0.75%)
 - [ ] Public payment base URL reachable from the scanning device
 - [ ] `£10.00` / `TABLE-7` payment created, QR scanned on the second device
 - [ ] Transaction visible on `stellar.expert` Testnet with both split operations

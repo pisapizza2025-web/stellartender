@@ -10,7 +10,7 @@ import { Screen } from '@/components/Screen';
 import { SectionCard } from '@/components/SectionCard';
 import { TestnetNotice } from '@/components/TestnetBadge';
 import { updateMerchant, updateSettings } from '@/lib/payments/api';
-import { effectiveRatePct, formatPercent } from '@/lib/payments/fees';
+import { DEFAULT_PLATFORM_FEE_BPS, effectiveRatePct, formatPercent } from '@/lib/payments/fees';
 import { POS_OPTIONS, type PosOption } from '@/lib/payments/types';
 import { isStellarAddress, SOROBAN_CONTRACT_ID } from '@/lib/stellar/config';
 import { toPaymentError } from '@/lib/stellar/errors';
@@ -31,7 +31,7 @@ export default function SettingsScreen() {
   const [businessError, setBusinessError] = useState<string | null>(null);
   const [businessSaved, setBusinessSaved] = useState(false);
 
-  const [feeBps, setFeeBps] = useState('30');
+  const [feeBps, setFeeBps] = useState(String(DEFAULT_PLATFORM_FEE_BPS));
   const [platformWallet, setPlatformWallet] = useState('');
   const [assetCode, setAssetCode] = useState('TESTGBP');
   const [assetIssuer, setAssetIssuer] = useState('');
@@ -187,7 +187,7 @@ export default function SettingsScreen() {
 
       <SectionCard
         title="Platform configuration"
-        subtitle={`Demo settings. Alternative Stellar Payment effective rate: ${formatPercent(altRate)}.`}
+        subtitle={`Demo settings. Stellar Flexi Payment effective rate: ${formatPercent(altRate)}.`}
       >
         <Field
           label="Platform fee (basis points)"
@@ -195,7 +195,7 @@ export default function SettingsScreen() {
           onChangeText={setFeeBps}
           keyboardType="number-pad"
           inputMode="numeric"
-          hint="30 bps = 0.30%. Configurable — nothing is hard-coded to one rate."
+          hint="75 bps = 0.75%, the demo default. On £100 the merchant receives £99.25 and Stellar Flexi Payment receives £0.75. Configurable — nothing is hard-coded to one rate."
         />
         <Field
           label="Platform wallet (Stellar public address)"

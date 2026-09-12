@@ -33,7 +33,7 @@ export function PosTenderCard({ existingPos, className }: PosTenderCardProps) {
           Suggested tender name
         </Text.Paragraph>
         <Text.Paragraph type="body" className="font-semibold text-white">
-          Alternative Stellar Payment
+          Stellar Flexi Payment
         </Text.Paragraph>
       </View>
       <Text.Paragraph type="body-xs" className="text-neutral-400">

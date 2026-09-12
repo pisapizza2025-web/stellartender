@@ -77,7 +77,7 @@ export default function TransactionsScreen() {
         ListHeaderComponent={
           <View className="gap-1 px-5 py-5">
             <Text.Heading type="h3" className="text-neutral-900">
-              Alternative payments
+              Flexi Payments
             </Text.Heading>
             <Text.Paragraph type="body-sm" className="text-neutral-500">
               Settled Stellar Testnet payments. Record each one in your POS as an external tender.

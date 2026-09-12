@@ -1,7 +1,7 @@
 {
-  "name": "Your App Name",
-  "short_name": "Your App",
-  "description": "An app built with Bilt",
+  "name": "Stellar Flexi Payment",
+  "short_name": "Flexi Payment",
+  "description": "Keep your POS. Add a cheaper alternative way to get paid, settled on Stellar.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

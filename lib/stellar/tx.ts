@@ -7,7 +7,8 @@
  * server-side against Horizon.
  *
  * The same split is expressed by the Soroban contract in
- * contracts/alternative_payment; this path is what runs until a contract id is
+ * contracts/alternative_payment (the Soroban crate keeps its original folder and
+ * crate name); this path is what runs until a contract id is
  * configured, and it is real Stellar Testnet activity either way.
  */
 

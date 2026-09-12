@@ -1,5 +1,5 @@
 /**
- * Data access for Alternative Stellar Payment.
+ * Data access for Stellar Flexi Payment.
  *
  * Payment sessions are created and settled by edge functions only: the server
  * owns the commercial amount, the asset choice and the fee split. The app never

@@ -5,6 +5,13 @@
 
 export const BPS_DENOMINATOR = 10_000;
 
+/**
+ * Demo default platform fee: 75 bps = 0.75%. On £100 the merchant receives
+ * £99.25 and Stellar Flexi Payment receives £0.75. This is only the default —
+ * the live rate is read from platform_settings and is editable in Settings.
+ */
+export const DEFAULT_PLATFORM_FEE_BPS = 75;
+
 export function feeFromBps(amount: number, bps: number): number {
   return Math.round(((amount * bps) / BPS_DENOMINATOR) * 1e7) / 1e7;
 }
@@ -13,7 +20,7 @@ export function bpsToPercent(bps: number): number {
   return bps / 100;
 }
 
-/** Alternative Stellar Payment effective rate = platform fee + configured settlement cost. */
+/** Stellar Flexi Payment effective rate = platform fee + configured settlement cost. */
 export function effectiveRatePct(platformFeeBps: number, settlementCostPct: number): number {
   return bpsToPercent(platformFeeBps) + settlementCostPct;
 }

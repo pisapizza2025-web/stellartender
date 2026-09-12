@@ -1,8 +1,8 @@
-# Alternative Stellar Payment
+# Stellar Flexi Payment
 
 **Keep your POS. Change the payment rail.**
 
-Alternative Stellar Payment is an independent alternative payment method that a merchant runs
+Stellar Flexi Payment is an independent alternative payment method that a merchant runs
 _alongside_ the POS they already use. It is not a POS, not an exchange and not a card processor.
 
 The existing POS keeps doing orders, menu, inventory, VAT, staff, receipts, reporting and kitchen
@@ -10,7 +10,7 @@ operations. This app does one job: take a payment on the Stellar network and tel
 it has really settled, so they can close the sale in their POS using an external / custom tender.
 
 ```
-Cash   |   Card   |   Alternative Stellar Payment
+Cash   |   Card   |   Stellar Flexi Payment
 ```
 
 > **TESTNET DEMO — NO REAL MONEY.** Every transaction is real Stellar **Testnet** activity. Mainnet
@@ -52,7 +52,7 @@ Stellar Testnet  ──  real signed transaction
 Merchant terminal polls the session → ✓ PAYMENT SETTLED
       │
       ▼
-Merchant records "Alternative Stellar Payment" as an external tender in their POS
+Merchant records "Stellar Flexi Payment" as an external tender in their POS
 ```
 
 ### Repository layout
@@ -114,8 +114,8 @@ same atomicity the Soroban contract gives, using classic Stellar operations that
 This is the agreed fallback while the contract is not yet deployed; see
 [SETUP.md](./SETUP.md) for switching to the contract.
 
-Fee: **30 bps (0.30%)** by default, configurable in Settings → Platform configuration (and therefore
-never hard-coded to one rate). On £100: merchant £99.70, platform £0.30.
+Fee: **75 bps (0.75%)** by default, configurable in Settings → Platform configuration (and therefore
+never hard-coded to one rate). On £100: merchant £99.25, Stellar Flexi Payment £0.75.
 
 Asset resolution, in order:
 
@@ -167,7 +167,7 @@ public pay base URL) lives in the database and is edited in **Settings**, not in
 2. Fund the customer wallet from Freighter's own Testnet funding (Friendbot).
 3. Sign in to the app, complete onboarding with a **merchant receiving wallet** (Testnet `G…`).
 4. In **Settings → Platform configuration** set the **platform wallet** (a second Testnet `G…`) and
-   confirm the fee is `30` bps.
+   confirm the fee is `75` bps (0.75%).
 5. In **Demo mode**, fund the merchant and platform wallets with Friendbot. An unfunded destination
    cannot receive a payment.
 6. Set **Public payment base URL** in Settings to the URL your phone can reach (for example the
@@ -177,7 +177,7 @@ public pay base URL) lives in the database and is edited in **Settings**, not in
 
 1. Merchant signs in. Profile: **Mario's Kitchen**, existing POS **Square** (Demo mode loads this in
    one press).
-2. **NEW PAYMENT** → `£10.00`, order `TABLE-7` → **CREATE ALTERNATIVE PAYMENT**.
+2. **NEW PAYMENT** → `£10.00`, order `TABLE-7` → **CREATE FLEXI PAYMENT**.
 3. The merchant terminal shows the amount, the order, `WAITING FOR PAYMENT`, a QR code, the NFC-ready
    URL and a 5-minute countdown.
 4. Scan the QR on another device (or press **Open payment page**).
@@ -186,8 +186,9 @@ public pay base URL) lives in the database and is edited in **Settings**, not in
 6. Freighter opens; the customer signs. The merchant screen moves through `CUSTOMER CONNECTED` →
    `PAYMENT PROCESSING…`.
 7. Once Horizon confirms, both screens show **✓ PAYMENT SETTLED / ✓ PAYMENT COMPLETE** with the
-   transaction hash.
-8. The merchant screen says: \*Record this transaction in Square as **Alternative Stellar Payment\***.
+   transaction hash and the 0.75% split (merchant amount and Stellar Flexi Payment fee shown
+   separately, to settlement precision).
+8. The merchant screen says: \*Record this transaction in Square as **Stellar Flexi Payment\***.
 9. The payment appears in **Transactions**, and the **savings dashboard** updates.
 
 ### Verify on Stellar Testnet
@@ -202,9 +203,12 @@ Estimates only, and labelled as such in the UI:
 
 ```
 Estimated traditional card fees = volume × card processing rate (default 1.75%)
-Alternative Stellar Payment fees = volume × (platform fee bps + settlement cost)
-Estimated savings = the difference
+Stellar Flexi Payment fees      = volume × (platform fee bps + settlement cost)
+Estimated savings               = the difference
 ```
+
+At the demo defaults — card 1.75% versus a 0.75% merchant fee — a £10,000 month is roughly £175 in
+card fees against £75 plus negligible network cost.
 
 Shown for **this month** and **lifetime**. The point is not the exact number: the merchant keeps the
 POS they already have and pays less to get paid.

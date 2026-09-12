@@ -71,7 +71,7 @@ export function CreatePaymentForm({ defaultReference = '' }: CreatePaymentFormPr
       />
       {error ? <ErrorNotice title="Cannot create payment" message={error} /> : null}
       <Button size="lg" isDisabled={busy} onPress={() => void create()}>
-        <Button.Label>{busy ? 'Creating…' : 'CREATE ALTERNATIVE PAYMENT'}</Button.Label>
+        <Button.Label>{busy ? 'Creating…' : 'CREATE FLEXI PAYMENT'}</Button.Label>
       </Button>
       <Text.Paragraph type="body-xs" className="text-neutral-500">
         Take the amount from your existing POS. Nothing in your POS changes.
